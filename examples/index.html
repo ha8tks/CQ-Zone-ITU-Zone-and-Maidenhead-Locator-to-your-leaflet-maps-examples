@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>CQ Zone, ITU Zone and Maidenhead Locator to your leaflet maps</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   	<script type="text/javascript"  src="https://unpkg.com/leaflet@latest/dist/leaflet.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@latest/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet.vectorgrid@latest/dist/Leaflet.VectorGrid.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/text-image/dist/text-image.js"></script>
+	<script src="https://ha8tks.github.io/Leaflet.CQzones/src/L.CQzones.js"></script>
+	<script src="https://ha8tks.github.io/Leaflet.ITUzones/src/L.ITUzones.js"></script>
+	<script src="https://ha8tks.github.io/Leaflet.Maidenhead/src/L.Maidenhead.js"></script>
+    
+	 <style>
+    body {
+      padding: 0;
+      margin: 0;
+    }
+    html, body, #map {
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+	<div id="map"></div>
+
+	<script>
+   
+		var cqzones = L.cqzones();
+		var ituzones = L.ituzones();
+		var maidenhead = L.maidenhead();
+
+		var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+			minZoom: 2,
+			maxZoom: 20
+		});
+		var map = L.map('map', {
+			layers: [osm],
+			center: [46, 19],
+			zoom: 5
+			});
+
+		var cqzones = L.cqzones();
+		var ituzones = L.ituzones();
+		var maidenhead = L.maidenhead();
+		
+		cqzones.addTo(map)
+			
+		L.control.layers({
+			'Map': osm
+		}, {
+			"<span style='color: black'>CQZone</span>" : cqzones,
+			"<span style='color: black'>ITUZone</span>" : ituzones,
+			"<span style='color: black'>Locator</span>" : maidenhead
+		}).addTo(map); 
+	
+	</script>
+  
+</body>               
+</html>
